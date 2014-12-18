@@ -44,17 +44,8 @@ namespace WindowsMediaPlayerV2.View
             // Get the selected file name and display in a TextBox
             if (result == true)
             {
-                int index = dlg.FileName.LastIndexOf('\\');
-                String fNameWithExt = dlg.FileName.Substring(index + 1);
-                index = fNameWithExt.IndexOf('.');
-                String fName = fNameWithExt.Substring(0, index);
-                String ext = fNameWithExt.Substring(index + 1);
-                var MPVM = (MediaPlayerVM)this.DataContext;
-                MessageBox.Show(fNameWithExt + "-->" + fName + " + " + ext);
-
-
-                MPVM.FileName = fName;
-                MPVM.FileExt = ext;
+                var MPVM = (MediaPlayerVM)DataContext;
+                MPVM.FilePath = dlg.FileName;
                 if (MPVM.CreateCommand.CanExecute(null))
                     MPVM.CreateCommand.Execute(null);
             }

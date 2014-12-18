@@ -14,7 +14,14 @@ namespace WindowsMediaPlayerV2Core
     {
         protected ObservableCollection<Media> _playList;
         protected Media _current;
-
+        protected MediaElement _media { get; set; }
+        public MediaElement MediaEL
+        {
+            set
+            {
+                _media = value;
+            }
+        }
         public enum STATUS
         {
             PLAY = 0,
@@ -41,10 +48,13 @@ namespace WindowsMediaPlayerV2Core
         }
         public virtual void Dispose() { }
 
-        public virtual Media Create<T>() where T : Media, new()
+        public virtual Media Create<T>(String path, String name, String ext) where T : Media, new()
         {
             _current = new T();
             Playlist.Add(_current);
+            _current.Title = name;
+            _current.Extension = ext;
+            _current.Source = new Uri(path);
             return _current;
         }
     }

@@ -5,40 +5,36 @@ using System.Text;
 using System.ComponentModel.Composition;
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
+using System.IO;
 
 namespace WindowsMediaPlayerV2Core
 {
     [Export(typeof(IPlayer))]
     class DefaultPlayer : Player
     {
-        MediaElement MediaEl;
-        public DefaultPlayer() {
-            MediaEl = new MediaElement();
-        }
-        public override Media Create<T>()
+        public DefaultPlayer()
         {
-            base.Create<T>();
-            //MediaEl.Source = System.Uri(_current.Path);
-            return _current;
         }
+
+
         public override void Play()
         {
-            MediaEl.Play();
+            _media.LoadedBehavior = MediaState.Play;
         }
 
         public override void Pause()
         {
-            MediaEl.Pause();
+            _media.LoadedBehavior = MediaState.Pause;
         }
         public override void Stop()
         {
-            MediaEl.Stop();
+            _media.LoadedBehavior = MediaState.Stop;
         }
         public override void Dispose()
         {
-            MediaEl.Stop();
+            _media.LoadedBehavior = MediaState.Close;
         }
-        
+
 
     }
 }

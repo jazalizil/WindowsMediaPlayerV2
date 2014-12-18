@@ -28,16 +28,5 @@ namespace WindowsMediaPlayerV2Core
                 Console.WriteLine(compositionException.ToString());
             }
         }
-
-        static String FileName = "C:\\Users\\jazalizil\\Music\\MZ-MZ_music_vol.3-WEB-FR-2014-RITH\\01-Bratatata.mp3";
-
-        static void Main(string[] args)
-        {
-            Program p = new Program();
-            Console.WriteLine("Hello player");
-            Console.WriteLine(Environment.CurrentDirectory.ToString());
-            p.player.Play();
-            Console.ReadLine();
-        }
     }
 }

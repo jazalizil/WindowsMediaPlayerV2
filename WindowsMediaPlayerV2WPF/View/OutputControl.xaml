@@ -6,7 +6,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <DockPanel x:Name="outputPan" Height="Auto" Width="Auto">
-        <MediaElement />
-
+        <ContentControl Content="{Binding ToPlay}" />
     </DockPanel>
 </UserControl>
