@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="WindowsMediaPlayerV2.View.PlayerControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300"
+             d:DataContext="WindowsMediaPlayerV2.ViewModel.MediaPlayerVM">
+
+
+        <DockPanel x:Name="bottomBar">
+            <DockPanel x:Name="centerDock" LastChildFill="False" Height="{Binding ActualHeight, ElementName=bottomBar}" DockPanel.Dock="Bottom" HorizontalAlignment="Center">
+
+            <Path x:Name="Stop" Data="F1M7,7C7,7 11,7 11,7 11,7 11,11 11,11 11,11 7,11 7,11 7,11 7,7 7,7z M9,3C5.686,3 3,5.686 3,9 3,12.314 5.686,15 9,15 12.314,15 15,12.314 15,9 15,5.686 12.314,3 9,3z M9,1C13.418,1 17,4.582 17,9 17,13.418 13.418,17 9,17 4.582,17 1,13.418 1,9 1,4.582 4.582,1 9,1z" Fill="White" Width="25" Margin="5,0" Stretch="Fill" Height="25">
+                <Path.Style>
+                    <Style TargetType="{x:Type Path}">
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Path.Fill" Value="Red" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="False">
+                                <Setter Property="Path.Fill" Value="Gray" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Path.Style>
+            </Path>
+            <Path x:Name="Backward" Data="F1M6,6C6,6,7,6.75,8,7.5L9,8.25 9,6.938C9,6.375 9,6 9,6 9,6 13,9 13,9 13,9 9,12 9,12 9,12 9,11.625 9,11.062L9,9.75 8,10.5C7,11.25 6,12 6,12 6,12 6,6 6,6z M9,3C5.686,3 3,5.686 3,9 3,12.314 5.686,15 9,15 12.314,15 15,12.314 15,9 15,5.686 12.314,3 9,3z M9,1C13.418,1 17,4.582 17,9 17,13.418 13.418,17 9,17 4.582,17 1,13.418 1,9 1,4.582 4.582,1 9,1z" Fill="White" Width="25" Margin="5,0" Stretch="Fill" RenderTransformOrigin="0.5,0.5" Height="25">
+                    <Path.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="180"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Path.RenderTransform>
+                </Path>
+                <Path x:Name="Play" Data="F1M7,6C7,6 12,9 12,9 12,9 7,12 7,12 7,12 7,6 7,6z M9,3C5.686,3 3,5.686 3,9 3,12.314 5.686,15 9,15 12.314,15 15,12.314 15,9 15,5.686 12.314,3 9,3z M9,1C13.418,1 17,4.582 17,9 17,13.418 13.418,17 9,17 4.582,17 1,13.418 1,9 1,4.582 4.582,1 9,1z" Fill="White" Width="40" Margin="5,0" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Stretch="Fill"/>
+                <Path x:Name="Pause" Data="F1M10,7C10,7 12,7 12,7 12,7 12,11 12,11 12,11 10,11 10,11 10,11 10,7 10,7z M6,7C6,7 8,7 8,7 8,7 8,11 8,11 8,11 6,11 6,11 6,11 6,7 6,7z M9,3C5.686,3 3,5.686 3,9 3,12.314 5.686,15 9,15 12.314,15 15,12.314 15,9 15,5.686 12.314,3 9,3z M9,1C13.418,1 17,4.582 17,9 17,13.418 13.418,17 9,17 4.582,17 1,13.418 1,9 1,4.582 4.582,1 9,1z" Fill="White" Width="19" Margin="0,0,0,9" Visibility="Collapsed" Height="19"/>
+                <Path x:Name="Forward" Data="F1M6,6C6,6,7,6.75,8,7.5L9,8.25 9,6.938C9,6.375 9,6 9,6 9,6 13,9 13,9 13,9 9,12 9,12 9,12 9,11.625 9,11.062L9,9.75 8,10.5C7,11.25 6,12 6,12 6,12 6,6 6,6z M9,3C5.686,3 3,5.686 3,9 3,12.314 5.686,15 9,15 12.314,15 15,12.314 15,9 15,5.686 12.314,3 9,3z M9,1C13.418,1 17,4.582 17,9 17,13.418 13.418,17 9,17 4.582,17 1,13.418 1,9 1,4.582 4.582,1 9,1z" Fill="White" Width="25" Margin="5,0" Stretch="Fill" Height="25"/>
+                <Path x:Name="Sound" Data="F1M13.031,12.991C13.297,12.991 13.562,13.093 13.765,13.296 13.765,13.296 16.704,16.235 16.704,16.235 17.11,16.64 17.11,17.298 16.704,17.704 16.298,18.11 15.64,18.11 15.235,17.704 15.235,17.704 12.296,14.765 12.296,14.765 11.89,14.36 11.89,13.702 12.296,13.296 12.499,13.093 12.765,12.991 13.031,12.991z M13,9C13,9 16,9 16,9 16.552,9 17,9.448 17,10 17,10.552 16.552,11 16,11 16,11 13,11 13,11 12.448,11 12,10.552 12,10 12,9.448 12.448,9 13,9z M8,6C8,6 6,8 6,8 6,8 3,8 3,8 3,8 3,12 3,12 3,12 6,12 6,12 6,12 8,14 8,14 8,14 8,6 8,6z M9,2C9,2 10,1.875 10,3 10,8.982 10,17.982 10,17 10,18.125 9,18 9,18 9,18 5,14 5,14 5,14 2,14 2,14 1.448,14 1,13.552 1,13 1,13 1,7 1,7 1,6.448 1.448,6 2,6 2,6 5,6 5,6 5,6 9,2 9,2z M15.969,1.992C16.235,1.992 16.501,2.093 16.704,2.296 17.11,2.702 17.11,3.36 16.704,3.765 16.704,3.765 13.765,6.704 13.765,6.704 13.36,7.11 12.702,7.11 12.296,6.704 11.89,6.298 11.89,5.64 12.296,5.235 12.296,5.235 15.235,2.296 15.235,2.296 15.438,2.093 15.703,1.992 15.969,1.992z" Fill="White" Width="25" Margin="5,0" Stretch="Fill" Height="25"/>
+            </DockPanel>
+        </DockPanel>
+</UserControl>

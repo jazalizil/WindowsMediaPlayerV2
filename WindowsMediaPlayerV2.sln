@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsMediaPlayerV2Core", "WindowsMediaPlayerV2Core\WindowsMediaPlayerV2Core.csproj", "{4CB42131-B5CE-4D3F-ACCA-18E8C70D9EA5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVVM", "MVVM\MVVM.csproj", "{C2D819C1-0130-4F38-9769-24E7FA8D793F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsMediaPlayerV2WPF", "WindoesMediaPlayerV2WPF\WindowsMediaPlayerV2WPF.csproj", "{9682DCF7-03D0-42C2-A86F-338D024679C7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4CB42131-B5CE-4D3F-ACCA-18E8C70D9EA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CB42131-B5CE-4D3F-ACCA-18E8C70D9EA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CB42131-B5CE-4D3F-ACCA-18E8C70D9EA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CB42131-B5CE-4D3F-ACCA-18E8C70D9EA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2D819C1-0130-4F38-9769-24E7FA8D793F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2D819C1-0130-4F38-9769-24E7FA8D793F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2D819C1-0130-4F38-9769-24E7FA8D793F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2D819C1-0130-4F38-9769-24E7FA8D793F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9682DCF7-03D0-42C2-A86F-338D024679C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9682DCF7-03D0-42C2-A86F-338D024679C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9682DCF7-03D0-42C2-A86F-338D024679C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9682DCF7-03D0-42C2-A86F-338D024679C7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
