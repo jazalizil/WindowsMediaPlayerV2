@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsMediaPlayerV2Core", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVVM", "MVVM\MVVM.csproj", "{C2D819C1-0130-4F38-9769-24E7FA8D793F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsMediaPlayerV2WPF", "WindoesMediaPlayerV2WPF\WindowsMediaPlayerV2WPF.csproj", "{9682DCF7-03D0-42C2-A86F-338D024679C7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsMediaPlayerV2WPF", "WindowsMediaPlayerV2WPF\WindowsMediaPlayerV2WPF.csproj", "{9682DCF7-03D0-42C2-A86F-338D024679C7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
