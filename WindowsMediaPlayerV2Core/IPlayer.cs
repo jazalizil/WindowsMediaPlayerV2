@@ -10,7 +10,6 @@ namespace WindowsMediaPlayerV2Core
 {
     public interface IPlayer : IDisposable
     {
-        MediaElement MediaEL { set;  }
         ObservableCollection<Media> Playlist { get; }
         void Play();
         void Pause();

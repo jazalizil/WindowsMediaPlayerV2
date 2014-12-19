@@ -10,6 +10,8 @@ namespace WindowsMediaPlayerV2Core
     {
         public Sound()
         {
+            this.Height = 250;
+            this.Width = 347;
         }
         public String Artist {get;set;}
         public String Album { get; set; }

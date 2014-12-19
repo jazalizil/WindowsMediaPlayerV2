@@ -34,7 +34,7 @@ namespace WindowsMediaPlayerV2.View
 
         void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            return;
+            WindowState = WindowState.Normal;
         }
         private void MinimizeButton(object sender, RoutedEventArgs e)
         {

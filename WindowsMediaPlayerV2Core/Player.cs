@@ -14,14 +14,7 @@ namespace WindowsMediaPlayerV2Core
     {
         protected ObservableCollection<Media> _playList;
         protected Media _current;
-        protected MediaElement _media { get; set; }
-        public MediaElement MediaEL
-        {
-            set
-            {
-                _media = value;
-            }
-        }
+
         public enum STATUS
         {
             PLAY = 0,

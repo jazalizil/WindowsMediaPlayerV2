@@ -46,8 +46,8 @@ namespace WindowsMediaPlayerV2.View
             {
                 var MPVM = (MediaPlayerVM)DataContext;
                 MPVM.FilePath = dlg.FileName;
-                if (MPVM.CreateCommand.CanExecute(null))
-                    MPVM.CreateCommand.Execute(null);
+                if (MPVM.CreateMediaCommand.CanExecute(null))
+                    MPVM.CreateMediaCommand.Execute(null);
             }
         }
 

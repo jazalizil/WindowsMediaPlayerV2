@@ -19,20 +19,20 @@ namespace WindowsMediaPlayerV2Core
 
         public override void Play()
         {
-            _media.LoadedBehavior = MediaState.Play;
+            _current.LoadedBehavior = MediaState.Play;
         }
 
         public override void Pause()
         {
-            _media.LoadedBehavior = MediaState.Pause;
+            _current.LoadedBehavior = MediaState.Pause;
         }
         public override void Stop()
         {
-            _media.LoadedBehavior = MediaState.Stop;
+            _current.LoadedBehavior = MediaState.Stop;
         }
         public override void Dispose()
         {
-            _media.LoadedBehavior = MediaState.Close;
+            _current.LoadedBehavior = MediaState.Close;
         }
 
 

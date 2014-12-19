@@ -5,9 +5,26 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
-    <DockPanel x:Name="playlistPan" Height="Auto" Width="Auto">
-        <ListBox x:Name="Playlist">
 
+        <DockPanel x:Name="playlistPan" Height="Auto" Width="Auto">
+        <ListBox x:Name="PlaylistBox" ItemsSource="{Binding Playlist}">
+   
+                <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Name="Container" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50" />
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="40" />
+                        </Grid.ColumnDefinitions>
+                        <Label Name="Title" Content="{Binding Path=Title+Extension}" Grid.Column="0" MouseDoubleClick="Title_MouseDoubleClick"/>
+                        <GridSplitter></GridSplitter>
+                        <Label Name="Type" Content="{Binding Path=Extension}" Grid.Column="1"/>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
         </ListBox>
     </DockPanel>
 </UserControl>

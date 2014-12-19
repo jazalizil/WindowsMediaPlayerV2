@@ -15,12 +15,11 @@ namespace WindowsMediaPlayerV2.ViewModel
         private String _fExt { get; set; }
         private String _fName { get; set; }
         private Dictionary<String, Type> ExtToType;
-        private readonly MediaElement _toPlay;
+        private Media _toPlay;
 
         public MediaPlayerVM()
         {
             WMP = new Program();
-            _toPlay = new MediaElement();
             ExtToType = new Dictionary<string, Type>();
             ExtToType["mp3"] = typeof(WindowsMediaPlayerV2Core.Sound);
             ExtToType["wav"] = typeof(WindowsMediaPlayerV2Core.Sound);
@@ -44,9 +43,14 @@ namespace WindowsMediaPlayerV2.ViewModel
                 _fExt = fNameWithExt.Substring(index + 1);
             }
         }
-        public MediaElement ToPlay
+        public Media ToPlay
         {
             get { return _toPlay; }
+            set
+            {
+                _toPlay = value;
+                RaisePropertyChangedEvent("ToPlay");
+            }
         }
         public ICommand PlayCommand
         {
@@ -54,7 +58,7 @@ namespace WindowsMediaPlayerV2.ViewModel
             {
                 return new MVVM.DelegateCommand(() =>
                 {
-                    MethodInfo PlayMeth = WMP.player.GetType().GetMethod("Play").MakeGenericMethod();
+                    MethodInfo PlayMeth = WMP.player.GetType().GetMethod("Play");
                     PlayMeth.Invoke(WMP.player, null);
                 });
             }
@@ -65,7 +69,7 @@ namespace WindowsMediaPlayerV2.ViewModel
             {
                 return new MVVM.DelegateCommand(() =>
                     {
-                        MethodInfo PauseMeth = WMP.player.GetType().GetMethod("Pause").MakeGenericMethod();
+                        MethodInfo PauseMeth = WMP.player.GetType().GetMethod("Pause");
                         PauseMeth.Invoke(WMP.player, null);
                     });
             }
@@ -76,12 +80,13 @@ namespace WindowsMediaPlayerV2.ViewModel
             {
                 return new MVVM.DelegateCommand(() =>
                     {
-                        MethodInfo StopMeth = WMP.player.GetType().GetMethod("Stop").MakeGenericMethod();
+                        MethodInfo StopMeth = WMP.player.GetType().GetMethod("Stop");
                         StopMeth.Invoke(WMP.player, null);
+
                     });
             }
         }
-        public ICommand CreateCommand
+        public ICommand CreateMediaCommand
         {
             get
             {
@@ -89,8 +94,8 @@ namespace WindowsMediaPlayerV2.ViewModel
                 {
                     MethodInfo meth = WMP.player.GetType().GetMethod("Create");
                     MethodInfo MediaCreate = meth.MakeGenericMethod(ExtToType[_fExt]);
-                    var MediaOpened = (Media)MediaCreate.Invoke(WMP.player, new String[]{_fPath, _fName, _fExt});
-                    _toPlay.Source = MediaOpened.Source;
+                    _toPlay = (Media)MediaCreate.Invoke(WMP.player, new String[] { _fPath, _fName, _fExt });
+                    RaisePropertyChangedEvent("ToPlay");
                 });
             }
         }

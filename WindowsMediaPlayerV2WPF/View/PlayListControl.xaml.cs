@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WindowsMediaPlayerV2.ViewModel;
 
 namespace WindowsMediaPlayerV2.View
 {
@@ -23,6 +24,14 @@ namespace WindowsMediaPlayerV2.View
         public PlayListControl()
         {
             InitializeComponent();
+        }
+
+        private void Title_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var WPVM = DataContext as MediaPlayerVM;
+            String Content = ((Label)sender).Content as String;
+            var found = from media in WPVM.Playlist where media.Title == Content select media;
+            WPVM.ToPlay = found.First();
         }
     }
 }
