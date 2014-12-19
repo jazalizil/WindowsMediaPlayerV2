@@ -10,11 +10,12 @@ namespace WindowsMediaPlayerV2Core
 {
     public interface IPlayer : IDisposable
     {
+        MediaState PlayerState { get; }
         ObservableCollection<Media> Playlist { get; }
         void Play();
         void Pause();
         void Stop();
-        Media Create<T>(String FilePath, String FileName, String FileExt) where T: Media, new();
+        Media CreateMedia<T>(String FilePath, String FileName, String FileExt) where T: Media, new();
 
     }
 }

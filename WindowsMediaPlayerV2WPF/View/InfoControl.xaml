@@ -6,7 +6,7 @@
              mc:Ignorable="d" 
              >
 
-    <DockPanel x:Name="infoBar"  Height="Auto" Width="Auto" LastChildFill="False">
+    <DockPanel x:Name="infoBar"  Height="50" Width="Auto" LastChildFill="False">
         <Image x:Name="profil_image" VerticalAlignment="Top" DockPanel.Dock="Right" Source="Images/profile.jpg"/>
         <DockPanel x:Name="namesDock" LastChildFill="False" VerticalAlignment="Top" DockPanel.Dock="Right">
             <Label x:Name="first_name" Content="Lea" Height="25" VerticalAlignment="Top" DockPanel.Dock="Top" Foreground="White" HorizontalAlignment="Right" FontSize="17.333" Padding="0,2,5,0" Margin="0"/>

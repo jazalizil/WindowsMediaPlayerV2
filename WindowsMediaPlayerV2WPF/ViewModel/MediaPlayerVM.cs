@@ -1,8 +1,8 @@
 ﻿
+using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Windows.Controls;
 using System.Windows.Input;
 using WindowsMediaPlayerV2Core;
 
@@ -11,12 +11,12 @@ namespace WindowsMediaPlayerV2.ViewModel
     public class MediaPlayerVM : MVVM.ViewModel
     {
         private Program WMP;
-        private String _fPath { get; set; }
-        private String _fExt { get; set; }
-        private String _fName { get; set; }
+        private string _fPath { get; set; }
+        private string _fExt { get; set; }
+        private string _fName { get; set; }
         private Dictionary<String, Type> ExtToType;
         private Media _toPlay;
-
+        private int _width, _height;
         public MediaPlayerVM()
         {
             WMP = new Program();
@@ -29,7 +29,14 @@ namespace WindowsMediaPlayerV2.ViewModel
             ExtToType["jpg"] = typeof(WindowsMediaPlayerV2Core.Photo);
             ExtToType["png"] = typeof(WindowsMediaPlayerV2Core.Photo);
         }
-
+        public int Width
+        {
+            get { return _width; }
+        }
+        public int Height
+        {
+            get { return _height; }
+        }
         public String FilePath
         {
             get { return _fPath; }
@@ -86,22 +93,92 @@ namespace WindowsMediaPlayerV2.ViewModel
                     });
             }
         }
+        public ICommand NextMediaCommand
+        {
+            get
+            {
+                return new MVVM.DelegateCommand(() =>
+                {
+                    //MethodInfo NextMeth = WMP.player.GetType().GetMethod
+                });
+            }
+        }
         public ICommand CreateMediaCommand
         {
             get
             {
                 return new MVVM.DelegateCommand(() =>
                 {
-                    MethodInfo meth = WMP.player.GetType().GetMethod("Create");
-                    MethodInfo MediaCreate = meth.MakeGenericMethod(ExtToType[_fExt]);
-                    _toPlay = (Media)MediaCreate.Invoke(WMP.player, new String[] { _fPath, _fName, _fExt });
-                    RaisePropertyChangedEvent("ToPlay");
+                    try
+                    {
+                       
+                    }
+                    catch (Exception) { }
                 });
+            }
+        }
+        private void CreateMedia()
+        {
+            MethodInfo meth = WMP.player.GetType().GetMethod("CreateMedia");
+            MethodInfo MediaCreate = meth.MakeGenericMethod(ExtToType[_fExt]);
+            ToPlay = (Media)MediaCreate.Invoke(WMP.player, new String[] { _fPath, _fName, _fExt });
+        }
+        public ICommand OpenFileCommand
+        {
+            get
+            {
+                return new MVVM.DelegateCommand(() =>
+                {
+                    var dlg = new Microsoft.Win32.OpenFileDialog();
+                    dlg.DefaultExt = ".mp3";
+                    dlg.Filter = "Multimedia Files (*.mp3, *.wav, *.mp4, *.avi, *.jpg, *.jpeg, *.png)|*.mp3;*.wav;*.mp4;*.avi;*.jpg;*.jpeg;*.png";
+
+                    Nullable<bool> result = dlg.ShowDialog();
+                    if (result == true)
+                    {
+                        FilePath = dlg.FileName;
+                        CreateMedia();
+                    }
+                });
+            }
+        }
+        public ICommand OpenDirCommand
+        {
+            get
+            {
+                return new MVVM.DelegateCommand(() =>
+                {
+                    var dlg = new CommonOpenFileDialog();
+                    dlg.IsFolderPicker = true;
+                    CommonFileDialogResult result = dlg.ShowDialog();
+                    if (result == CommonFileDialogResult.Ok)
+                    {
+                        String[] files = System.IO.Directory.GetFiles(dlg.FileName);
+                        foreach (var f in files)
+                        {
+                            FilePath = f;
+                            if (CreateMediaCommand.CanExecute(null))
+                                CreateMediaCommand.Execute(null);
+                        }
+                    }
+                });
+            }
+        }
+        public ICommand SelectTitleFromPlaylistCommand
+        {
+            get
+            {
+                return new MVVM.DelegateCommand(null);
             }
         }
         public IEnumerable<Media> Playlist
         {
-            get { return WMP.player.Playlist; }
+            get 
+            {
+                //var PlaylistField = WMP.player.GetType().GetField("Playlist");
+                //return PlaylistField.GetValue(WMP.player) as IEnumerable<Media>; 
+                return WMP.player.Playlist;
+            }
         }
     }
 }

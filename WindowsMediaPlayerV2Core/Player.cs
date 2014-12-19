@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Windows.Controls;
 
@@ -15,11 +16,12 @@ namespace WindowsMediaPlayerV2Core
         protected ObservableCollection<Media> _playList;
         protected Media _current;
 
-        public enum STATUS
+        public MediaState PlayerState
         {
-            PLAY = 0,
-            PAUSE,
-            STOP
+            get
+            {
+                return _current != null ? _current.LoadedBehavior : MediaState.Stop;
+            }
         }
         public Player()
         {
@@ -29,7 +31,6 @@ namespace WindowsMediaPlayerV2Core
         {
             get { return _playList; }
         }
-        public event EventHandler<PlayerArg> PlayerHandler;
         public virtual void Play()
         {
         }
@@ -39,9 +40,13 @@ namespace WindowsMediaPlayerV2Core
         public virtual void Stop()
         {
         }
-        public virtual void Dispose() { }
+        public virtual void Dispose()
+        {
+            foreach (var media in Playlist)
+                media.Close();
+        }
 
-        public virtual Media Create<T>(String path, String name, String ext) where T : Media, new()
+        public virtual Media CreateMedia<T>(String path, String name, String ext) where T : Media, new()
         {
             _current = new T();
             Playlist.Add(_current);

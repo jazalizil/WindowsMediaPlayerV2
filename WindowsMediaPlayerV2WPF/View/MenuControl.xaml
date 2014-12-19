@@ -7,14 +7,14 @@
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance ViewModel:MediaPlayerVM }">
     
-        <DockPanel x:Name="menuBar" Height="Auto">
+        <DockPanel x:Name="menuBar" Height="Auto" Width="Auto">
             <Menu DockPanel.Dock="Top" IsMainMenu="True" Background="#FF3A3A3A" Foreground="#FFF0F0F0" FontSize="18.667">
                 <MenuItem Header="_File" Foreground="White">
-                    <MenuItem Header="_Open File" Foreground="#FF3A3A3A" Click="OpenFile_Click" Command="{Binding }"/>
-                    <MenuItem Header="_Open Directory" Foreground="#FF3A3A3A" Click="OpenDir_Click" />
-                    <MenuItem Header="_Import Playlist" Foreground="#FF3A3A3A" Click="ImportPlaylist_Click"/>
-                    <MenuItem Header="_Save Playlist" Foreground="#FF3A3A3A" Click="SavePlaylist_Click"/>
-                    <MenuItem Header="_Quit" Foreground="#FF3A3A3A" Click="Quit_Click"/>
+                    <MenuItem Header="_Open File" Foreground="#FF3A3A3A" Command="{Binding OpenFileCommand}"/>
+                <MenuItem Header="_Open Directory" Foreground="#FF3A3A3A" Command="{Binding OpenDirCommand}"/>
+                <MenuItem Header="_Import Playlist" Foreground="#FF3A3A3A"/>
+                    <MenuItem Header="_Save Playlist" Foreground="#FF3A3A3A"/>
+                    <MenuItem Header="_Quit" Foreground="#FF3A3A3A" />
                 </MenuItem>
             </Menu>
             <StackPanel></StackPanel>

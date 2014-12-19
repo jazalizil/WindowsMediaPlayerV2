@@ -4,10 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300">
+            >
 
         <DockPanel x:Name="playlistPan" Height="Auto" Width="Auto">
-        <ListBox x:Name="PlaylistBox" ItemsSource="{Binding Playlist}">
+        <ListBox x:Name="PlaylistBox" ItemsSource="{Binding Playlist}" BorderBrush="#00040000">
    
                 <ListBox.ItemTemplate>
                 <DataTemplate>
@@ -19,7 +19,7 @@
                             <ColumnDefinition Width="1*" />
                             <ColumnDefinition Width="40" />
                         </Grid.ColumnDefinitions>
-                        <Label Name="Title" Content="{Binding Path=Title+Extension}" Grid.Column="0" MouseDoubleClick="Title_MouseDoubleClick"/>
+                        <Label Name="Title" Content="{Binding Path=Title}" Grid.Column="0" MouseDoubleClick="Title_MouseDoubleClick"/>
                         <GridSplitter></GridSplitter>
                         <Label Name="Type" Content="{Binding Path=Extension}" Grid.Column="1"/>
                     </Grid>
