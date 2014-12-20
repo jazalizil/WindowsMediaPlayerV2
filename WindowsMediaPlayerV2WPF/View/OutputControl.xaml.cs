@@ -24,9 +24,5 @@ namespace WindowsMediaPlayerV2.View
         {
             InitializeComponent();
         }
-
-        private void UserControl_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-        }
     }
 }

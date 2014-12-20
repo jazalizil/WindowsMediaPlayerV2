@@ -3,6 +3,7 @@ using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Windows;
 using System.Windows.Input;
 using WindowsMediaPlayerV2Core;
 
@@ -16,11 +17,12 @@ namespace WindowsMediaPlayerV2.ViewModel
         private string _fName { get; set; }
         private Dictionary<String, Type> ExtToType;
         private Media _toPlay;
-        private int _width, _height;
+        private double _centerGridHeight;
         public MediaPlayerVM()
         {
             WMP = new Program();
             ExtToType = new Dictionary<string, Type>();
+            CenterGridHeight = 580;
             ExtToType["mp3"] = typeof(WindowsMediaPlayerV2Core.Sound);
             ExtToType["wav"] = typeof(WindowsMediaPlayerV2Core.Sound);
             ExtToType["mp4"] = typeof(WindowsMediaPlayerV2Core.Video);
@@ -29,13 +31,16 @@ namespace WindowsMediaPlayerV2.ViewModel
             ExtToType["jpg"] = typeof(WindowsMediaPlayerV2Core.Photo);
             ExtToType["png"] = typeof(WindowsMediaPlayerV2Core.Photo);
         }
-        public int Width
+
+        public Double CenterGridHeight
         {
-            get { return _width; }
-        }
-        public int Height
-        {
-            get { return _height; }
+            get { return _centerGridHeight; }
+            set
+            {
+                _centerGridHeight = value;
+                RaisePropertyChangedEvent("CenterGridHeight");
+            }
+
         }
         public String FilePath
         {
@@ -93,6 +98,16 @@ namespace WindowsMediaPlayerV2.ViewModel
                     });
             }
         }
+        public ICommand ResizeCommand
+        {
+            get
+            {
+                return new MVVM.DelegateCommand(() =>
+                {
+                    CenterGridHeight = Application.Current.MainWindow.ActualHeight - 170;
+                });
+            }
+        }
         public ICommand NextMediaCommand
         {
             get
@@ -100,20 +115,6 @@ namespace WindowsMediaPlayerV2.ViewModel
                 return new MVVM.DelegateCommand(() =>
                 {
                     //MethodInfo NextMeth = WMP.player.GetType().GetMethod
-                });
-            }
-        }
-        public ICommand CreateMediaCommand
-        {
-            get
-            {
-                return new MVVM.DelegateCommand(() =>
-                {
-                    try
-                    {
-                       
-                    }
-                    catch (Exception) { }
                 });
             }
         }
@@ -130,7 +131,6 @@ namespace WindowsMediaPlayerV2.ViewModel
                 return new MVVM.DelegateCommand(() =>
                 {
                     var dlg = new Microsoft.Win32.OpenFileDialog();
-                    dlg.DefaultExt = ".mp3";
                     dlg.Filter = "Multimedia Files (*.mp3, *.wav, *.mp4, *.avi, *.jpg, *.jpeg, *.png)|*.mp3;*.wav;*.mp4;*.avi;*.jpg;*.jpeg;*.png";
 
                     Nullable<bool> result = dlg.ShowDialog();
@@ -157,8 +157,11 @@ namespace WindowsMediaPlayerV2.ViewModel
                         foreach (var f in files)
                         {
                             FilePath = f;
-                            if (CreateMediaCommand.CanExecute(null))
-                                CreateMediaCommand.Execute(null);
+                            try
+                            {
+                                CreateMedia();
+                            }
+                            catch (KeyNotFoundException) { }
                         }
                     }
                 });
@@ -168,12 +171,15 @@ namespace WindowsMediaPlayerV2.ViewModel
         {
             get
             {
-                return new MVVM.DelegateCommand(null);
+                return new MVVM.DelegateCommand(() =>
+                {
+                });
             }
         }
+
         public IEnumerable<Media> Playlist
         {
-            get 
+            get
             {
                 //var PlaylistField = WMP.player.GetType().GetField("Playlist");
                 //return PlaylistField.GetValue(WMP.player) as IEnumerable<Media>; 

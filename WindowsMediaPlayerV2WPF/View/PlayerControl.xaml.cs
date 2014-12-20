@@ -24,20 +24,5 @@ namespace WindowsMediaPlayerV2.View
         {
             InitializeComponent();
         }
-        //        private void Window_MouseDown(Object sender, MouseButtonEventArgs e)
-        //{
-        //    if (e.ChangedButton == MouseButton.Left)
-        //    {
-        //        this.DragMove();
-        //    }
-        //}
-
-        //
-
-        private void QuitButton(object sender, RoutedEventArgs e)
-        {
-            Application.Current.Shutdown(0);
-        }
-        
     }
 }

@@ -3,12 +3,12 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	x:Class="WindowsMediaPlayerV2.App"
 	StartupUri="View\MainWindow.xaml">
-	<Application.Resources>
-		<!-- Les ressources réparties au niveau Application sont définies ici. -->
+	<!--<Application.Resources>
+		--><!-- Les ressources réparties au niveau Application sont définies ici. --><!--
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
 				<ResourceDictionary Source="View\ResourceDictionary1.xaml"/>
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
-	</Application.Resources>
+	</Application.Resources>-->
 </Application>

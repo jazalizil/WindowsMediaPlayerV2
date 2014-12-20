@@ -3,23 +3,20 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d"
+             mc:Ignorable="d" 
             >
 
-        <DockPanel x:Name="playlistPan" Height="Auto" Width="Auto">
-        <ListBox x:Name="PlaylistBox" ItemsSource="{Binding Playlist}" BorderBrush="#00040000">
+    <DockPanel x:Name="playlistPan">
+        <ListBox x:Name="PlaylistBox" ItemsSource="{Binding Playlist}"  BorderBrush="#00040000">
    
                 <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid Name="Container" >
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="50" />
-                            <ColumnDefinition Width="100" />
-                            <ColumnDefinition Width="100" />
-                            <ColumnDefinition Width="1*" />
-                            <ColumnDefinition Width="40" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <Label Name="Title" Content="{Binding Path=Title}" Grid.Column="0" MouseDoubleClick="Title_MouseDoubleClick"/>
+                        <Label Name="Title" Content="{Binding Path=Title}" Grid.Column="0"/>
                         <GridSplitter></GridSplitter>
                         <Label Name="Type" Content="{Binding Path=Extension}" Grid.Column="1"/>
                     </Grid>

@@ -31,38 +31,36 @@ namespace WindowsMediaPlayerV2.View
 
         public MainWindow()
         {
-            this.Loaded += MainWindow_Loaded;
         }
 
-        void MainWindow_Loaded(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("ss");
-            WindowState = WindowState.Normal;
+        //void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        //{
+        //    WindowState = WindowState.Normal;
 
-        }
-        protected override void OnStateChanged(EventArgs e)
-        {
-            this.Title = "Resized!";
-            base.OnStateChanged(e);
-        }
-        void Update()
-        {
-            var Grid = this.GetTemplateChild("CenterGrid") as Grid;
-            MessageBox.Show(Grid.Name);
-            Grid.Height = ActualHeight - 125;
-        }
-        private void MinimizeButton(object sender, RoutedEventArgs e)
-        {
-            WindowState = WindowState.Minimized;
-        }
-        private void MaximizeButton(object sender, RoutedEventArgs e)
-        {
-            if (this.WindowState == WindowState.Normal)
-                WindowState = WindowState.Maximized;
-            else
-                WindowState = WindowState.Normal;
-            Update();
-        }
+        //}
+        //protected override void OnStateChanged(EventArgs e)
+        //{
+        //    this.Title = "Resized!";
+        //    base.OnStateChanged(e);
+        //}
+        //void Update()
+        //{
+        //    var Grid = this.GetTemplateChild("CenterGrid") as Grid;
+        //    MessageBox.Show(Grid.Name);
+        //    Grid.Height = ActualHeight - 125;
+        //}
+        //private void MinimizeButton(object sender, RoutedEventArgs e)
+        //{
+        //    WindowState = WindowState.Minimized;
+        //}
+        //private void MaximizeButton(object sender, RoutedEventArgs e)
+        //{
+        //    if (this.WindowState == WindowState.Normal)
+        //        WindowState = WindowState.Maximized;
+        //    else
+        //        WindowState = WindowState.Normal;
+        //    Update();
+        //}
     }
 
 
