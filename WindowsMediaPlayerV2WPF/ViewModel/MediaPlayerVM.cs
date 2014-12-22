@@ -1,10 +1,12 @@
 ﻿
 using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 using WindowsMediaPlayerV2Core;
 
 namespace WindowsMediaPlayerV2.ViewModel
@@ -18,11 +20,15 @@ namespace WindowsMediaPlayerV2.ViewModel
         private Dictionary<String, Type> ExtToType;
         private Media _toPlay;
         private double _centerGridHeight;
+        private readonly String PauseButtonData = "F1M7,6C7,6 12,9 12,9 12,9 7,12 7,12 7,12 7,6 7,6z M9,3C5.686,3 3,5.686 3,9 3,12.314 5.686,15 9,15 12.314,15 15,12.314 15,9 15,5.686 12.314,3 9,3z M9,1C13.418,1 17,4.582 17,9 17,13.418 13.418,17 9,17 4.582,17 1,13.418 1,9 1,4.582 4.582,1 9,1z";
+        private readonly String PlayButtonData = "F1M10,7C10,7 12,7 12,7 12,7 12,11 12,11 12,11 10,11 10,11 10,11 10,7 10,7z M6,7C6,7 8,7 8,7 8,7 8,11 8,11 8,11 6,11 6,11 6,11 6,7 6,7z M9,3C5.686,3 3,5.686 3,9 3,12.314 5.686,15 9,15 12.314,15 15,12.314 15,9 15,5.686 12.314,3 9,3z M9,1C13.418,1 17,4.582 17,9 17,13.418 13.418,17 9,17 4.582,17 1,13.418 1,9 1,4.582 4.582,1 9,1z";
+        private String _buttonData;
         public MediaPlayerVM()
         {
             WMP = new Program();
             ExtToType = new Dictionary<string, Type>();
             CenterGridHeight = 580;
+            _buttonData = PauseButtonData;
             ExtToType["mp3"] = typeof(WindowsMediaPlayerV2Core.Sound);
             ExtToType["wav"] = typeof(WindowsMediaPlayerV2Core.Sound);
             ExtToType["mp4"] = typeof(WindowsMediaPlayerV2Core.Video);
@@ -32,6 +38,26 @@ namespace WindowsMediaPlayerV2.ViewModel
             ExtToType["png"] = typeof(WindowsMediaPlayerV2Core.Photo);
         }
 
+        public String ButtonData
+        {
+            get
+            {
+                return _buttonData;
+            }
+            set
+            {
+                _buttonData = value;
+                RaisePropertyChangedEvent("ButtonData");
+            }
+        }
+        public String UserName
+        {
+            get { return Environment.UserName; }
+        }
+        public String MachineName
+        {
+            get { return Environment.MachineName; }
+        }
         public Double CenterGridHeight
         {
             get { return _centerGridHeight; }
@@ -50,7 +76,7 @@ namespace WindowsMediaPlayerV2.ViewModel
                 _fPath = value;
                 int index = _fPath.LastIndexOf('\\');
                 String fNameWithExt = FilePath.Substring(index + 1);
-                index = fNameWithExt.IndexOf('.');
+                index = fNameWithExt.LastIndexOf('.');
                 _fName = fNameWithExt.Substring(0, index);
                 _fExt = fNameWithExt.Substring(index + 1);
             }
@@ -64,28 +90,29 @@ namespace WindowsMediaPlayerV2.ViewModel
                 RaisePropertyChangedEvent("ToPlay");
             }
         }
-        public ICommand PlayCommand
+        public ICommand PlayPauseCommand
         {
             get
             {
                 return new MVVM.DelegateCommand(() =>
                 {
-                    MethodInfo PlayMeth = WMP.player.GetType().GetMethod("Play");
+                    String cmd;
+                    if (_buttonData == PlayButtonData)
+                    {
+                        cmd = "Pause";
+                        ButtonData = PauseButtonData;
+                    }
+                    else
+                    {
+                        cmd = "Play";
+                        ButtonData = PlayButtonData;
+                    }
+                    MethodInfo PlayMeth = WMP.player.GetType().GetMethod(cmd);
                     PlayMeth.Invoke(WMP.player, null);
                 });
             }
         }
-        public ICommand PauseCommand
-        {
-            get
-            {
-                return new MVVM.DelegateCommand(() =>
-                    {
-                        MethodInfo PauseMeth = WMP.player.GetType().GetMethod("Pause");
-                        PauseMeth.Invoke(WMP.player, null);
-                    });
-            }
-        }
+        
         public ICommand StopCommand
         {
             get
@@ -114,7 +141,9 @@ namespace WindowsMediaPlayerV2.ViewModel
             {
                 return new MVVM.DelegateCommand(() =>
                 {
+                    MessageBox.Show("sss");
                     //MethodInfo NextMeth = WMP.player.GetType().GetMethod
+                    //int index = Playlist.
                 });
             }
         }
@@ -138,6 +167,7 @@ namespace WindowsMediaPlayerV2.ViewModel
                     {
                         FilePath = dlg.FileName;
                         CreateMedia();
+                        ButtonData = PlayButtonData;
                     }
                 });
             }
@@ -163,6 +193,7 @@ namespace WindowsMediaPlayerV2.ViewModel
                             }
                             catch (KeyNotFoundException) { }
                         }
+                        ToPlay = Playlist.First();
                     }
                 });
             }
@@ -171,8 +202,10 @@ namespace WindowsMediaPlayerV2.ViewModel
         {
             get
             {
-                return new MVVM.DelegateCommand(() =>
+                return new MVVM.RelayCommand((s) =>
                 {
+                    var Founds = from med in Playlist where med.Title == (String)s select med ;
+                    ToPlay = Founds.First();
                 });
             }
         }
@@ -181,8 +214,7 @@ namespace WindowsMediaPlayerV2.ViewModel
         {
             get
             {
-                //var PlaylistField = WMP.player.GetType().GetField("Playlist");
-                //return PlaylistField.GetValue(WMP.player) as IEnumerable<Media>; 
+                //var PlaylistField = WMP.player.GetType().GetFields();
                 return WMP.player.Playlist;
             }
         }

@@ -9,8 +9,8 @@
     <DockPanel x:Name="infoBar"  Height="50" Width="Auto" LastChildFill="False">
         <Image x:Name="profil_image" VerticalAlignment="Top" DockPanel.Dock="Right" Source="Images/profile.jpg"/>
         <DockPanel x:Name="namesDock" LastChildFill="False" VerticalAlignment="Top" DockPanel.Dock="Right">
-            <Label x:Name="first_name" Content="Lea" Height="25" VerticalAlignment="Top" DockPanel.Dock="Top" Foreground="White" HorizontalAlignment="Right" FontSize="17.333" Padding="0,2,5,0" Margin="0"/>
-            <Label x:Name="last_name" Content="Bitch" Height="25" VerticalAlignment="Top" DockPanel.Dock="Top" Foreground="White" Margin="0" HorizontalAlignment="Right" Padding="0,2,5,0"/>
+            <Label x:Name="first_name" Content="{Binding UserName}" Height="25" VerticalAlignment="Top" DockPanel.Dock="Top" Foreground="White" HorizontalAlignment="Right" FontSize="17.333" Padding="0,2,5,0" Margin="0"/>
+            <Label x:Name="last_name" Content="{Binding MachineName}" Height="25" VerticalAlignment="Top" DockPanel.Dock="Top" Foreground="White" Margin="0" HorizontalAlignment="Right" Padding="0,2,5,0"/>
         </DockPanel>
         <Image x:Name="backButton" Margin="10,0,0,0" Source="backButton_Images/backBtn.png" Stretch="Fill" Width="35" Height="35"/>
         <Image x:Name="nextButton" Margin="10,0,0,0" Source="backButton_Images/backBtn.png" Stretch="Fill" Width="30" Height="30" RenderTransformOrigin="0.5,0.5">
