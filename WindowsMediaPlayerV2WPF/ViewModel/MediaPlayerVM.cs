@@ -90,6 +90,15 @@ namespace WindowsMediaPlayerV2.ViewModel
                 RaisePropertyChangedEvent("ToPlay");
             }
         }
+        public Media ToSwitch
+        {
+            set
+            {
+                ToPlay = value;
+                MethodInfo SwitchMeth = WMP.player.GetType().GetMethod("SwitchMedia");
+                SwitchMeth.Invoke(WMP.player, new Media[]{value});
+            }
+        }
         public ICommand PlayPauseCommand
         {
             get
@@ -194,21 +203,12 @@ namespace WindowsMediaPlayerV2.ViewModel
                             catch (KeyNotFoundException) { }
                         }
                         ToPlay = Playlist.First();
+                        ButtonData = PlayButtonData;
                     }
                 });
             }
         }
-        public ICommand SelectTitleFromPlaylistCommand
-        {
-            get
-            {
-                return new MVVM.RelayCommand((s) =>
-                {
-                    var Founds = from med in Playlist where med.Title == (String)s select med ;
-                    ToPlay = Founds.First();
-                });
-            }
-        }
+
 
         public IEnumerable<Media> Playlist
         {

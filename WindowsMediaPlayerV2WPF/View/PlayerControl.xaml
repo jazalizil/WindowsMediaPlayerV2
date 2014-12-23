@@ -28,7 +28,7 @@
                 </Path.Style>
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDown">
-                        <i:InvokeCommandAction  Command="{Binding StopCommand}"></i:InvokeCommandAction>
+                        <i:InvokeCommandAction  Command="{Binding StopCommand}" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </Path>
@@ -46,7 +46,7 @@
             <Path x:Name="Play" Data="{Binding ButtonData}" Fill="White" Width="40" Margin="5,0" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Stretch="Fill">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDown">
-                        <i:InvokeCommandAction Command="{Binding PlayPauseCommand}"></i:InvokeCommandAction>
+                        <i:InvokeCommandAction Command="{Binding PlayPauseCommand}" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </Path>
@@ -54,7 +54,7 @@
             <Path x:Name="Forward" Data="F1M6,6C6,6,7,6.75,8,7.5L9,8.25 9,6.938C9,6.375 9,6 9,6 9,6 13,9 13,9 13,9 9,12 9,12 9,12 9,11.625 9,11.062L9,9.75 8,10.5C7,11.25 6,12 6,12 6,12 6,6 6,6z M9,3C5.686,3 3,5.686 3,9 3,12.314 5.686,15 9,15 12.314,15 15,12.314 15,9 15,5.686 12.314,3 9,3z M9,1C13.418,1 17,4.582 17,9 17,13.418 13.418,17 9,17 4.582,17 1,13.418 1,9 1,4.582 4.582,1 9,1z" Fill="White" Width="25" Margin="5,0" Stretch="Fill" Height="25">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDown">
-                        <i:InvokeCommandAction Command="{Binding NextMediaCommand}"></i:InvokeCommandAction>
+                        <i:InvokeCommandAction Command="{Binding NextMediaCommand}" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </Path>

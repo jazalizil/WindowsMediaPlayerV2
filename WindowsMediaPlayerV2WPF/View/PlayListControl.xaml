@@ -8,14 +8,14 @@
             >
 
     <DockPanel x:Name="playlistPan">
-        <ListBox x:Name="PlaylistBox" ItemsSource="{Binding Playlist}"  SelectedItem="{Binding Path=ToPlay, Mode=TwoWay}" BorderBrush="#00040000">
+        <ListBox x:Name="PlaylistBox" ItemsSource="{Binding Playlist}"  SelectedItem="{Binding Path=ToSwitch}" BorderBrush="#00040000">
 
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid Name="Container" >
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="2*" />
                         </Grid.ColumnDefinitions>
                         <Label Name="Title" Content="{Binding Path=Title}" Grid.Column="0">
                         </Label>

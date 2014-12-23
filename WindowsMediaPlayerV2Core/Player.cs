@@ -40,6 +40,11 @@ namespace WindowsMediaPlayerV2Core
         public virtual void Stop()
         {
         }
+        public virtual void SwitchMedia(Media m)
+        {
+            var FoundList = from med in _playList where med.Title == m.Title select m;
+            _current = FoundList.First();
+        }
         public virtual void Dispose()
         {
             foreach (var media in Playlist)
