@@ -35,6 +35,9 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Id3">
+      <HintPath>..\..\..\..\..\Downloads\ID3-0.4beta-bin\Id3.dll</HintPath>
+    </Reference>
     <Reference Include="NAudio">
       <HintPath>..\..\..\..\..\Downloads\NAudio-1-7-2-Release\NAudio.dll</HintPath>
     </Reference>

@@ -8,22 +8,25 @@
         ResizeMode="CanResizeWithGrip"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
     
-        Title="WindowsMediaPlayerV2" Background="#FF3A3A3A" Icon="logo WMP_Images/norm.png" Margin="0" WindowStartupLocation="Manual">
+        Title="WindowsMediaPlayerV2" Background="#FF3A3A3A" Icon="logo WMP_Images/norm.png" Margin="0" WindowStartupLocation="Manual" Height="769" Width="1422">
 
     <Window.DataContext>
         <ViewModel:MediaPlayerVM/>
     </Window.DataContext>
+  
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="SizeChanged">
             <i:InvokeCommandAction Command="{Binding ResizeCommand}">
             </i:InvokeCommandAction>
         </i:EventTrigger>
     </i:Interaction.Triggers>
-    <Grid x:Name="MainGrid" Background="#FF3A3A3A" VerticalAlignment="Top" Margin="0,0,0,0">
+    
+    <Grid x:Name="MainGrid" Background="#FF3A3A3A" VerticalAlignment="Top" Margin="0,0,0,0" d:IsLocked="True">
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
             <RowDefinition Height="50"/>
             <RowDefinition Height="{Binding CenterGridHeight}"/>
+			<RowDefinition Height="25"/>
             <RowDefinition Height="65"/>
         </Grid.RowDefinitions>
         <View:MenuControl Grid.Row="0" Width="Auto"/>
@@ -36,7 +39,8 @@
             <View:OutputControl Grid.Column="0" Margin="0" d:IsLocked="True"/>
             <View:PlayListControl Grid.Column="1" Margin="0"/>
         </Grid>
-        <View:PlayerControl Grid.Row="3" Width="Auto"/>
+        <View:ProgressControl Grid.Row="3" Width="Auto"/>
+        <View:PlayerControl Grid.Row="4" Width="Auto"/>
     </Grid>
 
 

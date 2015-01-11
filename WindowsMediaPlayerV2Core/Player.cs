@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Windows.Controls;
+using Id3.Info;
 
 namespace WindowsMediaPlayerV2Core
 {
@@ -31,16 +32,14 @@ namespace WindowsMediaPlayerV2Core
         {
             get { return _playList; }
         }
-        public virtual void Play()
-        {
-        }
-        public virtual void Pause()
-        {
-        }
-        public virtual void Stop()
-        {
-        }
-        public virtual void SwitchMedia(Media m)
+
+        public abstract void Play();
+        public abstract void Pause();
+        public abstract void Stop();
+        public abstract Media Next();
+        public abstract Media Previous();
+
+        public void SwitchMedia(Media m)
         {
             var FoundList = from med in _playList where med.Title == m.Title select m;
             _current = FoundList.First();
@@ -51,7 +50,7 @@ namespace WindowsMediaPlayerV2Core
                 media.Close();
         }
 
-        public virtual Media CreateMedia<T>(String path, String name, String ext) where T : Media, new()
+        public Media CreateMedia<T>(String path, String name, String ext) where T : Media, new()
         {
             _current = new T();
             Playlist.Add(_current);

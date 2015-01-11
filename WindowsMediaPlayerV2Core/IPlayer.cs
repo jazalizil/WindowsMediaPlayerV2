@@ -15,6 +15,8 @@ namespace WindowsMediaPlayerV2Core
         void Play();
         void Pause();
         void Stop();
+        Media Next();
+        Media Previous();
         void SwitchMedia(Media m);
         Media CreateMedia<T>(String FilePath, String FileName, String FileExt) where T: Media, new();
 

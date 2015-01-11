@@ -20,9 +20,11 @@ namespace WindowsMediaPlayerV2.ViewModel
         private Dictionary<String, Type> ExtToType;
         private Media _toPlay;
         private double _centerGridHeight;
-        private readonly String PauseButtonData = "F1M7,6C7,6 12,9 12,9 12,9 7,12 7,12 7,12 7,6 7,6z M9,3C5.686,3 3,5.686 3,9 3,12.314 5.686,15 9,15 12.314,15 15,12.314 15,9 15,5.686 12.314,3 9,3z M9,1C13.418,1 17,4.582 17,9 17,13.418 13.418,17 9,17 4.582,17 1,13.418 1,9 1,4.582 4.582,1 9,1z";
-        private readonly String PlayButtonData = "F1M10,7C10,7 12,7 12,7 12,7 12,11 12,11 12,11 10,11 10,11 10,11 10,7 10,7z M6,7C6,7 8,7 8,7 8,7 8,11 8,11 8,11 6,11 6,11 6,11 6,7 6,7z M9,3C5.686,3 3,5.686 3,9 3,12.314 5.686,15 9,15 12.314,15 15,12.314 15,9 15,5.686 12.314,3 9,3z M9,1C13.418,1 17,4.582 17,9 17,13.418 13.418,17 9,17 4.582,17 1,13.418 1,9 1,4.582 4.582,1 9,1z";
-        private String _buttonData;
+        private readonly string PauseButtonData = "F1M7,6C7,6 12,9 12,9 12,9 7,12 7,12 7,12 7,6 7,6z M9,3C5.686,3 3,5.686 3,9 3,12.314 5.686,15 9,15 12.314,15 15,12.314 15,9 15,5.686 12.314,3 9,3z M9,1C13.418,1 17,4.582 17,9 17,13.418 13.418,17 9,17 4.582,17 1,13.418 1,9 1,4.582 4.582,1 9,1z";
+        private readonly string PlayButtonData = "F1M10,7C10,7 12,7 12,7 12,7 12,11 12,11 12,11 10,11 10,11 10,11 10,7 10,7z M6,7C6,7 8,7 8,7 8,7 8,11 8,11 8,11 6,11 6,11 6,11 6,7 6,7z M9,3C5.686,3 3,5.686 3,9 3,12.314 5.686,15 9,15 12.314,15 15,12.314 15,9 15,5.686 12.314,3 9,3z M9,1C13.418,1 17,4.582 17,9 17,13.418 13.418,17 9,17 4.582,17 1,13.418 1,9 1,4.582 4.582,1 9,1z";
+        private string _buttonData;
+        private bool _isFullScreen;
+
         public MediaPlayerVM()
         {
             WMP = new Program();
@@ -36,6 +38,14 @@ namespace WindowsMediaPlayerV2.ViewModel
             ExtToType["jpeg"] = typeof(WindowsMediaPlayerV2Core.Photo);
             ExtToType["jpg"] = typeof(WindowsMediaPlayerV2Core.Photo);
             ExtToType["png"] = typeof(WindowsMediaPlayerV2Core.Photo);
+        }
+
+        public Boolean isFullscreen
+        {
+            get
+            {
+                return _isFullScreen;
+            }
         }
 
         public String ButtonData
@@ -96,7 +106,7 @@ namespace WindowsMediaPlayerV2.ViewModel
             {
                 ToPlay = value;
                 MethodInfo SwitchMeth = WMP.player.GetType().GetMethod("SwitchMedia");
-                SwitchMeth.Invoke(WMP.player, new Media[]{value});
+                SwitchMeth.Invoke(WMP.player, new Media[] { value });
             }
         }
         public ICommand PlayPauseCommand
@@ -121,7 +131,22 @@ namespace WindowsMediaPlayerV2.ViewModel
                 });
             }
         }
-        
+
+        public ICommand FullScreenCommand
+        {
+            get
+            {
+                return new MVVM.DelegateCommand(() =>
+                {
+                    _isFullScreen = !_isFullScreen;
+                    if (_isFullScreen)
+                    {
+                         
+                    }
+                });
+            }
+        }
+
         public ICommand StopCommand
         {
             get
@@ -130,7 +155,7 @@ namespace WindowsMediaPlayerV2.ViewModel
                     {
                         MethodInfo StopMeth = WMP.player.GetType().GetMethod("Stop");
                         StopMeth.Invoke(WMP.player, null);
-
+                        ButtonData = PauseButtonData;
                     });
             }
         }
@@ -150,14 +175,26 @@ namespace WindowsMediaPlayerV2.ViewModel
             {
                 return new MVVM.DelegateCommand(() =>
                 {
-                    MessageBox.Show("sss");
-                    //MethodInfo NextMeth = WMP.player.GetType().GetMethod
-                    //int index = Playlist.
+                    MethodInfo NextMeth = WMP.player.GetType().GetMethod("Next");
+                    ToPlay = (Media)NextMeth.Invoke(WMP.player, null);
+                });
+            }
+        }
+        public ICommand PrevMediaCommand
+        {
+            get
+            {
+                return new MVVM.DelegateCommand(() =>
+                {
+                    MethodInfo PrevMeth = WMP.player.GetType().GetMethod("Previous");
+                    ToPlay = (Media)PrevMeth.Invoke(WMP.player, null);
                 });
             }
         }
         private void CreateMedia()
         {
+            if (ExtToType[_fExt] == typeof(WindowsMediaPlayerV2Core.Photo))
+                return;
             MethodInfo meth = WMP.player.GetType().GetMethod("CreateMedia");
             MethodInfo MediaCreate = meth.MakeGenericMethod(ExtToType[_fExt]);
             ToPlay = (Media)MediaCreate.Invoke(WMP.player, new String[] { _fPath, _fName, _fExt });
@@ -214,8 +251,8 @@ namespace WindowsMediaPlayerV2.ViewModel
         {
             get
             {
-                //var PlaylistField = WMP.player.GetType().GetFields();
-                return WMP.player.Playlist;
+                var PlaylistField = WMP.player.GetType().GetProperty("Playlist");
+                return (IEnumerable<Media>) PlaylistField.GetValue(WMP.player, null);
             }
         }
     }

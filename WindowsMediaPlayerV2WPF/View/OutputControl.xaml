@@ -3,9 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              mc:Ignorable="d" 
+             xmlns:Tools="clr-namespace:WindowsMediaPlayerV2.BindingTools"
+
              >
     <DockPanel x:Name="outputPan" >
-        <ContentControl Content="{Binding ToPlay}" />
+        <ContentControl Content="{Binding ToPlay}">
+            <i:Interaction.Behaviors>
+                <Tools:SliderBehavior x:Name="sliderDP"/>
+            </i:Interaction.Behaviors>
+            </ContentControl>
     </DockPanel>
 </UserControl>
